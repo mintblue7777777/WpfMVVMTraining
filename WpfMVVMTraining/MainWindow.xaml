@@ -1,0 +1,71 @@
+﻿<Window
+    x:Class="WpfMVVMTraining.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:WpfMVVMTraining"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="MainWindow"
+    Width="400"
+    Height="450"
+    mc:Ignorable="d">
+    <Window.DataContext>
+        <local:MainWindowViewModel />
+    </Window.DataContext>
+    <StackPanel>
+        <TextBox Text="{Binding Input, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <Button Command="{Binding ConvertCommand}" Content="Convert" />
+        <TextBlock Text="{Binding Output}" />
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="25*" />
+                <RowDefinition Height="37*" />
+            </Grid.RowDefinitions>
+            <Label Content="左辺値" />
+            <Label Grid.Row="1" Content="計算方法" />
+            <Label Grid.Row="2" Content="右辺値" />
+            <TextBox
+                Grid.Column="2"
+                Text="{Binding Lhs, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                TextWrapping="Wrap" />
+            <ComboBox
+                Grid.Row="1"
+                Grid.Column="2"
+                DisplayMemberPath="Label"
+                ItemsSource="{Binding OTypes}"
+                SelectedItem="{Binding SelectedOperatorType}" />
+            <TextBox
+                Grid.Row="2"
+                Grid.Column="2"
+                Text="{Binding Rhs, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                TextWrapping="Wrap" />
+            <Label Grid.Row="4" Content="答え" />
+            <TextBlock
+                Grid.Row="4"
+                Grid.Column="2"
+                Text="{Binding Answer}"
+                TextWrapping="Wrap" />
+            <TextBlock
+                Grid.Row="5"
+                Grid.ColumnSpan="3"
+                Text="{Binding Message}"
+                TextWrapping="Wrap" />
+            <Button
+                Grid.Row="3"
+                Grid.ColumnSpan="3"
+                Command="{Binding ExecuteCommand, Mode=OneWay}"
+                Content="計算" />
+        </Grid>
+    </StackPanel>
+</Window>
